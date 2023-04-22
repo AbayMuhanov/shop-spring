@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Third resource</title>
+</head>
+<body>
+
+<div th:each="user : ${users}" style="border-bottom: 1px solid black">
+    <p>Name: <b th:text="${user.getName()}"></b></p>
+    <p>Age:  <b th:text="${user.getAge()}"></b></p>
+</div>
+
+<b th:if="${users.isEmpty()}">User list is empty</b>
+
+
+
+</body>
+</html>
