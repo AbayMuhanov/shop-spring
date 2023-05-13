@@ -1,0 +1,36 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
+    <title>Show Info</title>
+</head>
+<body>
+<div>
+    <form th:action="@{/product/info(productId=${productInfo.id})}" method="get">
+        <div th:each="product : ${productInfo}" style="border-bottom: 1px solid black; margin: 50px 20px;">
+            <p>Id: <b th:text="${product.getId}"></b></p>
+            <p>Category: <b th:text="${product.getCategory().getName()}"></b></p>
+            <p>Name: <b th:text="${product.getName()}"></b></p>
+            <p>Price: <b th:text="${product.getPrice()}"></b></p>
+            <!--            <p>Option: <b th:text="${product.getValues()}"></b></p>-->
+            <div class="values">
+                <p>Options:</p>
+                <ul>
+                    <li th:each="value : ${product.getValues()}"
+                        th:text="${value.getOption().getName() + ': ' + value.getName()}"></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+    <form th:action="@{/product/list_product}" method="get" style="margin-left: 20px ">
+        <button type="submit" class="btn btn-primary">Back to List</button>
+    </form>
+</div>
+</body>
+</html>
