@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fourth resource</title>
+</head>
+<body>
+
+<div th:each="product : ${products}" style="border-bottom: 1px solid black">
+    <p>Category: <b th:text="${product.getCategory().getName()}"></b></p>
+    <p>Name: <b th:text="${product.getName()}"></b></p>
+    <p>Price: <b th:text="${product.getPrice()}"></b></p>
+</div>
+
+<b th:if="${products.isEmpty()}">Product list is empty</b>
+
+
+</body>
+</html>

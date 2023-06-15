@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Second resource</title>
+</head>
+<body>
+
+<div th:if="${user.getAge()>=18}">
+    <p>Name: <b th:text="${user.getName()}"></b></p>
+    <p>Age: <b th:text="${user.getAge()}"></b></p>
+</div>
+<b th:if="${user.getAge()<18}">User is under 18</b>
+
+</body>
+</html>
