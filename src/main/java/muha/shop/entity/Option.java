@@ -1,9 +1,15 @@
 package muha.shop.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "options")
 public class Option {
@@ -21,35 +27,12 @@ public class Option {
     @OneToMany(mappedBy = "option")
     private List<Value> values;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
+    @Override
+    public String toString() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Option() {
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public List<Value> getValues() {
-        return values;
-    }
-
-    public void setValues(List<Value> values) {
-        this.values = values;
     }
 }

@@ -3,6 +3,8 @@ package muha.shop.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,18 +16,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated
+    @Enumerated(EnumType.ORDINAL)
     private UserRole role;
+    private String login;
+    private String password;
+    private String name;
 
-    private String Login;
+    @Column(name = "last_name")
+    private String lastName;
 
-    private String Password;
+    @Column(name = "registration_date")
+    private LocalDateTime registrationDate;
 
-//    private String name;
-//
-//    private String lastNane;
-//
-//    private Integer dateOfCreation;
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
+    @OneToMany(mappedBy = "user")
+    List<Feedback> feedbacks;
 
+//    public User() {
+//    }
 }

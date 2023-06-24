@@ -2,14 +2,11 @@ package muha.shop.service;
 
 import muha.shop.entity.Feedback;
 import muha.shop.entity.Product;
-import muha.shop.entity.User;
 import muha.shop.repository.FeedbackRepository;
 import muha.shop.repository.ProductRepository;
-import muha.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

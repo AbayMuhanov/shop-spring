@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-
     List<Product> findAllByPriceBefore(int value);
 
     List<Product> findAllByPriceAfter(int value);
@@ -26,7 +25,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Transactional
     @Query("update Product p set p.price = p.price + p.price * ?1 /100 where p.category.id = ?2")
     void updateProductPriceByCategory(int percent, long categoryId);
-
 
     // select p from Product p where p.category.id = ?1
     List<Product> findAllByCategoryId(long categoryId);

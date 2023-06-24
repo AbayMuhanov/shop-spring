@@ -1,10 +1,15 @@
 package muha.shop.entity;
 
-
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
-@Table(name ="values")
+@Table(name = "values")
 public class Value {
 
     @Id
@@ -21,35 +26,11 @@ public class Value {
     @JoinColumn(name = "option_id")
     private Option option;
 
-    public Long getId() {
-        return id;
+    public String toString() {
+        return getValue();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Value() {
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Option getOption() {
-        return option;
-    }
-
-    public void setOption(Option option) {
-        this.option = option;
     }
 }

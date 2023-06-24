@@ -12,7 +12,7 @@
   <title>Заказы пользователей</title>
 </head>
 <body>
-<header th:replace="navbar"></header>
+<header th:replace="main_page"></header>
 <div class="container text-center">
   <h2>Заказы пользователей:</h2>
 </div>
@@ -34,7 +34,7 @@
                 <span th:each="orderProduct : ${order.getOrderProducts()}"
                       th:text="${orderProduct.getProduct().getName()}"></span>
       </td>
-      <td th:text="${order.getOrder_status().getStatus()}"></td>
+      <td th:text="${order.getOrderStatus().getStatus()}"></td>
       <td th:text="${order.getUser().getLogin()}"></td>
       <td th:text="${order.getDeliveryAddress()}"></td>
       <td th:text="${@orderService.getOrderDate(order.getOrderTime())}"></td>

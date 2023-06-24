@@ -1,9 +1,13 @@
 package muha.shop.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
+
 public enum OrderStatus {
+
     AVAILABLE("Доступен"),
     SEND("Отправлен"),
     SOLD("Продан"),
@@ -11,7 +15,4 @@ public enum OrderStatus {
 
     private final String status;
 
-    OrderStatus(String status) {
-        this.status = status;
-    }
 }

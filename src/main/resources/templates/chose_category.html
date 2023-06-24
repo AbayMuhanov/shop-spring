@@ -9,28 +9,51 @@
           rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
           crossorigin="anonymous">
     <title>Chose Category</title>
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 
 <body>
-<form th:action="@{/product/add_product}" method="get">
+<div class="container">
+    <form th:action="@{/product/create_product}" method="get">
+        <h1 class="text-center">Выберите категорию</h1>
+        <div class="form-group">
+            <label for="categoryId">Категория:</label>
+            <select name="categoryId" id="categoryId" class="form-control">
+                <th:block th:each="categories : ${categories}">
+                    <option th:value="${categories.id}" th:text="${categories.getName()}"></option>
+                </th:block>
+            </select>
+        </div>
 
-    <div style="margin: 100px 100px">
-
-        <h1>Выберите категорию</h1>
-        <select name="categoryId">
-            <th:block th:each="categories : ${categories}">
-                <option th:value="${categories.id}" th:text="${categories.getName()}"></option>
-            </th:block>
-        </select>
-
-
-        <button type="submit" class="btn btn-success" style="margin-left: 20px">
-            Add new product
-            <a th:href="@{/product/add_product}"></a>
-        </button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Add new product</button>
+        </div>
+    </form>
+    <div class="text-center mt-3">
+        <form th:action="@{/product/list_product}">
+            <button type="submit" class="btn btn-secondary">Назад</button>
+        </form>
     </div>
-</form>
-
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous">

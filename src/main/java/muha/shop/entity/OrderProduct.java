@@ -1,13 +1,13 @@
 package muha.shop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+
 @Table(name = "order_product")
 public class OrderProduct {
 

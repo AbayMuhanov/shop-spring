@@ -1,5 +1,7 @@
 package muha.shop.entity;
+
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+
 @Table(name = "cart_items")
 public class CartItem {
 
@@ -24,4 +27,6 @@ public class CartItem {
     private Product product;
 
     private int quantity;
-}
+
+    }
+

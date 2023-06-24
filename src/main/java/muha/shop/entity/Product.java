@@ -2,9 +2,13 @@ package muha.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "products")
 public class Product {
@@ -25,44 +29,11 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Value> values;
 
-    public Long getId() {
-        return id;
-    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<Feedback> feedbacks;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public List<Value> getValues() {
-        return values;
-    }
-
-    public void setValues(List<Value> values) {
-        this.values = values;
-    }
-
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "product")
+//    private List<OrderProduct> orderProducts;
 }

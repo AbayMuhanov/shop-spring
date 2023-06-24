@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "categories")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +18,6 @@ public class Category {
     @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Product> products;
-
     @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Option> options;
@@ -49,7 +49,6 @@ public class Category {
     public List<Product> getProducts() {
         return products;
     }
-
     public void setProducts(List<Product> products) {
         this.products = products;
     }

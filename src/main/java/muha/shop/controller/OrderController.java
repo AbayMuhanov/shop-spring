@@ -1,9 +1,6 @@
 package muha.shop.controller;
 
-
-import muha.shop.entity.Order;
 import muha.shop.entity.OrderStatus;
-import muha.shop.repository.OrderRepository;
 import muha.shop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,39 +13,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping
 public class OrderController {
-
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private OrderRepository orderRepository;
-
-    //    сделать_заказ
-    @GetMapping("/make_order")
-    public String chooseAddressAndStatus(Model model, String deliveryAddress) {
-        model.addAttribute("deliveryAddress", deliveryAddress);
-        return "order_product";
-    }
-
+    //сделайте заказ
     @PostMapping("/make_order_post")
-    public String makeOrder(@RequestParam String deliveryAddress) {
-        orderService.makeOrder(deliveryAddress);
-        return "redirect:/product/order_post";
+    public String makeOrder(@RequestParam String address) {
+        orderService.makeOrder(address);
+        orderService.deleteCartItemsAfterOrder();
+        return "redirect:/order";
     }
 
-    // изменить статус
+    //поиск заказа по пользователю
+    @GetMapping("/order")
+    public String findOrderByUser(Model model) {
+        model.addAttribute("ordersByUser", orderService.findOrderByUser());
+        model.addAttribute("statuses", orderService.getAllOrderStatuses());
+        return "order";
+    }
+
+    //Найти все заказы
+    @GetMapping("/show_admin_orders")
+    public String findAllOrders(Model model) {
+        model.addAttribute("all_orders", orderService.findAllOrders());
+        model.addAttribute("statuses", orderService.getAllOrderStatuses());
+        return "admin_orders";
+    }
+
+    // изменить статус заказа
     @GetMapping("/change_status")
-    public String chooseOrderStatus(@RequestParam Long orderId, @RequestParam OrderStatus orderStatus, Model model) {
-        Order order = orderRepository.findById(orderId).orElseThrow();
-        model.addAttribute("order", order);
-        return "cart";
+    public String changeOrderStatus(@RequestParam Long orderId, @RequestParam String orderStatus) {
+        OrderStatus status = OrderStatus.valueOf(orderStatus);
+        orderService.changeStatus(orderId, status);
+        return "redirect:/show_admin_orders";
     }
-
-    @PostMapping("/change_status")
-    public String changeStatus(@RequestParam Long orderId) {
-        orderService.changeStatus(orderId);
-        return "redirect:/product/list";
-    }
-
-
 }

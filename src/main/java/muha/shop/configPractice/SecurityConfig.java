@@ -19,7 +19,11 @@ public class SecurityConfig {
         });
 
         // login
-        http.formLogin().defaultSuccessUrl("/main_page");
+        http.formLogin()
+                .loginPage("/login")
+                .usernameParameter("login")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/main_page");
         return http.build();
     }
 }

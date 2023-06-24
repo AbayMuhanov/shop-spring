@@ -16,7 +16,7 @@
 <div class="container">
 
     <h4 class="container text-center mt-3"> Регистрация пользователя</h4>
-    <form th:action="@{/create_user}" method="post" th:object="${user}">
+    <form th:action="@{/create_user_post}" method="post" th:object="${user}">
         <hr>
         <div class="mx-auto col-md-5 mb-3">
             <label for="surname" class="form-label">Фамилия пользователя</label>
@@ -40,9 +40,9 @@
 
         <div class="mx-auto text-center mb-3">
 
-                <a th:href="@{/success_page}">
+<!--                <a th:href="@{/success_page}">-->
                     <input type="submit" value="Зарегистрировать" target="_blank" class="btn btn-success">
-                </a>
+<!--                </a>-->
 
             <span th:if="${error}" class="text-danger" th:text="${error}"></span>
         </div>

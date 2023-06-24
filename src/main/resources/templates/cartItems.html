@@ -11,28 +11,40 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-    <title>Корзина заказаов</title>
+    <title>Корзина заказов</title>
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .center-heading {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <h1>Корзина заказов</h1>
-    <h4>User</h4>
 
     <br>
     <table class="table table-white table-striped table-bordered">
         <thead>
         <tr>
-            <th>Product name</th>
-            <th>Products price</th>
+            <th>Название Товара</th>
+            <th>Цена Товара (₸)</th>
             <th>Количество</th>
-            <th>Delete</th>
+            <th>Прочее</th>
         </tr>
         </thead>
-
         <tbody>
-        <tr th:each="product : ${cartItems}">
-            <td th:text="${product.product.name}"></td>
-            <td th:text="${product.product.price}"></td>
+        <tr th:each="cartItem: ${cartItems}">
+            <td th:text="${cartItem.getProduct().name}"></td>
+            <td th:text="${cartItem.getProduct().price}"></td>
             <td>
                 <div style="width: 100px">
                     <label for="quantity" class="form-label">Количество</label>
@@ -40,53 +52,60 @@
                 </div>
             </td>
             <td>
-                <form action="/product/delete_post" method="post" style="margin-bottom: 5px">
-                    <input type="hidden" name="productId" th:value="${product.id}">
-                    <input type="submit" value="Delete" class="btn btn-danger">
+                <form th:action="@{/removeItem_post}" method="post" style="margin-bottom: 5px">
+                    <input type="hidden" name="productId" th:value="${cartItem.id}">
+                    <input type="submit" value="Удалить" class="btn btn-danger">
                 </form>
 
-                <form action="/product/info" method="get" style="margin-bottom: 5px">
-                    <a th:href="@{/product/info}">
-                        <input type="hidden" name="productId" th:value="${product.id}">
-                        <input type="submit" value="Info" target="_blank" class="btn btn-info">
-                    </a>
-                </form>
+<!--                <form action="/product/info" method="get" style="margin-bottom: 5px">-->
+<!--                    <a th:href="@{/product/info}">-->
+<!--                        <input type="hidden" name="productId" th:value="${cartItem.id}">-->
+<!--                        <input type="submit" value="Info" target="_blank" class="btn btn-info">-->
+<!--                    </a>-->
+<!--                </form>-->
             </td>
         </tr>
         </tbody>
     </table>
     <hr>
-
     <table class="table table-white table-striped table-bordered">
         <thead>
         <tr>
             <p>Сумма к оплате</p>
-        <tr th:each="totalPrice : ${totalPrice}">
-            <td th:text="${totalPrice}"></td>
         </tr>
+        <tr th:each="totalPrice : ${totalPrice}">
+            <td th:text="${totalPrice + ' ₸'}"></td>
 
+            <!--            <td th:text="${#numbers.formatDecimal(totalPrice, 0, 'GROUPS', 3, ' ') + ' руб.'}"></td>-->
+            <!--            <td th:text="${getFormattedTotalPrice(totalPrice) + ' руб.'}"></td>-->
+
+            <td class="text-end">
+                <form th:action="@{/removeAllItems}" th:method="get">
+                    <button type="submit" class="btn btn-danger btn-sm">Удалить все товары</button>
+                </form>
+            </td>
         </tr>
         </thead>
     </table>
+    <form th:action="@{/main_page}">
+        <button type="submit" class="btn btn-secondary">Назад</button>
+    </form>
+</div>
 
-    <div style="margin: 100px 500px; width: 350px; height: 200px;">
-        <h2>Оформление заказа</h2>
-        <form th:action="@{/place_an_order_post}" method="post">
+<div class="container">
+    <div class="form-container">
+        <div class="d-flex flex-row mb-4 center-heading">
+            <h2>Оформление заказа</h2>
+        </div>
+        <form th:action="@{/make_order_post}" method="post">
             <div class="mb-3">
                 <label for="address" class="form-label">Адрес доставки</label>
                 <input type="text" class="form-control" id="address" name="address" required>
             </div>
-
-            <a th:href="@{/order_placed}">
-                <form th:action="@{/place_an_order_post}" method="post">
-                    <button type="submit" class="btn btn-primary">Оформить заказ</button>
-                </form>
-            </a>
+            <button type="submit" class="btn btn-primary">Оформить заказ</button>
         </form>
     </div>
-
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous">
