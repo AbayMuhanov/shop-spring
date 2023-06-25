@@ -23,27 +23,31 @@ public class FeedbackController {
     @PostMapping("/leave_feedback_post")
     public String leaveFeedback(@RequestParam("textFeedback") String textFeedback,
                                 @RequestParam("score") Integer score,
-                                @RequestParam("productId") Long productId, Model model) {
+                                @RequestParam("productId") Long productId) {
 //        Feedback feedback = feedbackRepository.findByScoreFeedback(score);
 //        model.addAttribute("feedback", feedback);
         feedbackService.leaveFeedback(textFeedback, score, productId);
 //        feedbackService.getAverageFeedbackScore(productId);
-        return "redirect:/product/info?productId=" + productId;
+//        return "redirect:/product/info?productId=" + productId;
+        return "feedback success";
     }
 
 
     //    Уведомление Отзыв отправлен успешно
-    @GetMapping("/feedback_success")
-    public String FeedBack() {
-        return "feedback success";
-    }
+//    @GetMapping("/feedback_success")
+//    public String FeedBack() {
+//        return "feedback success";
+//    }
 
     //удалить отзыв
     @GetMapping("/delete_feedback")
     public String deleteFeedback(@RequestParam(required = false) Long feedbackId,
                                  @RequestParam(required = false) Long productId) {
         feedbackService.deleteFeedback(feedbackId);
-        return "redirect:/product/show?productId=" + productId;
+//        return "redirect:/product/show?productId=" + productId;
+//    return "redirect:/product/show";
+        return "delete_success";
+
     }
 
 }

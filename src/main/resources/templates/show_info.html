@@ -69,7 +69,8 @@
             <div class="values">
                 <p>Options:</p>
                 <ul>
-                    <li th:each="value : ${productInfo.values}" th:text="${value.option.name + ': ' + value.value}"></li>
+                    <li th:each="value : ${productInfo.values}"
+                        th:text="${value.option.name + ': ' + value.value}"></li>
                 </ul>
             </div>
         </div>
@@ -85,7 +86,8 @@
         <form action="/leave_feedback_post" method="post">
             <div>
                 <h3>Ваш отзыв:</h3>
-                <p><textarea rows="5" cols="100" name="textFeedback" placeholder="Введите ваш комментарий"></textarea></p>
+                <p><textarea rows="5" cols="100" name="textFeedback" placeholder="Введите ваш комментарий"></textarea>
+                </p>
                 <hr>
             </div>
             <div>
@@ -93,16 +95,17 @@
                 <input type="hidden" name="productId" th:value="${productInfo.id}">
                 <div class="mb-3">
                     <label class="form-label">Оценка:</label>
-                    <input type="number" class="form-control" name="score" placeholder="Введите оценку" required min="1" max="5">
+                    <input type="number" class="form-control" name="score" placeholder="Введите оценку" required min="1"
+                           max="5">
                 </div>
                 <div>
                     <span class="form-label">Средняя оценка</span>
                     <span th:text="${@feedbackService.getAverageFeedbackScore(productInfo.id)}"></span>
                 </div>
                 <hr>
-                <form action="product/show/feedback_success" method="get">
+                <a href="/feedback_success">
                     <button type="submit" class="btn btn-primary" target="_blank">Отправить отзыв</button>
-                </form>
+                </a>
             </div>
         </form>
 
@@ -121,7 +124,10 @@
                             <div class="feedback-content">
                                 <span th:text="${feedback.getTextFeedback() + ' - ' + feedback.getScoreFeedback()}"></span>
                             </div>
-                            <button th:if="${#authorization.expr('hasRole(''admin'')')}" type="submit" class="btn btn-danger btn-sm">Удалить отзыв</button>
+
+                            <button th:if="${#authorization.expr('hasRole(''admin'')')}" type="submit"
+                                    class="btn btn-danger btn-sm">Удалить отзыв
+                            </button>
                         </div>
                     </div>
                 </form>

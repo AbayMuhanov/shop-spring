@@ -19,11 +19,14 @@ public class AdminController {
     public String checkUserFeedbacks(Model model) {
         model.addAttribute("feedbacks", feedbackService.findAllIsPublishedFalse());
         return "admin_feedback";
+
     }
 
     @GetMapping("/feedback_post")
     public String postFeedback(@RequestParam Long feedbackId) {
         feedbackService.postFeedback(feedbackId);
-        return "redirect:/admin/feedbacks";
+//        return "redirect:/admin/feedbacks";
+        return "feedback success";
+
     }
 }
